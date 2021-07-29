@@ -1,45 +1,114 @@
 package com.Alevel;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
-public class CollectionInFile implements CollectionDaoInterface{
+public class CollectionInFile implements CollectionDaoInterface {
 
-    private Collection <Collections> collectionArray = new ArrayList<>();
-    private Collection <Collections> collectionLinked = new LinkedList<>();
-    private Collection <Collections> collectionHash = new HashSet<>();
-    private Collection <Collections> collectionLinkedHash = new LinkedHashSet<>();
-    private Collection <Collections> collectionTree = new TreeSet<>();
+    Collection<Integer> collectionArray;
+    Collection<Integer> collectionLinked;
+    Collection<Integer> collectionHash;
+    Collection<Integer> collectionLinkedHash;
+    Collection<Integer> collectionTree;
 
-    public CollectionInFile(){}
+    long startArray;
+    long endArray;
+    long startLinked;
+    long endLinked;
+    long startHash;
+    long endHash;
+    long startLinkedHash;
+    long endLinkedHash;
+    long startTree;
+    long endTree;
+
 
     @Override
-    public void create(Collections collections) {
-        this.collectionArray.add(collections);
-        writeInfoToFile();
-        this.collectionLinked.add(collections);
-        writeInfoToFile();
-        this.collectionHash.add(collections);
-        writeInfoToFile();
-        this.collectionLinkedHash.add(collections);
-        writeInfoToFile();
-        this.collectionTree.add(collections);
-        writeInfoToFile();
+    public void create(int count, int iter) {
+        this.collectionArray = new ArrayList<>();
+        this.collectionLinked = new LinkedList<>();
+        this.collectionHash = new HashSet<>();
+        this.collectionLinkedHash = new LinkedHashSet<>();
+        this.collectionTree = new TreeSet<>();
+
+        for (int i = 0; i < iter; i++) {
+            startArray = System.currentTimeMillis();
+            for (Integer j = 0; j < count; j++) {
+                this.collectionArray.add(j + 1);
+            }
+            endArray = System.currentTimeMillis() - startArray;
+            write(collectionArray.toString());
+        }
+        for (int i = 0; i < iter; i++) {
+            startLinked = System.currentTimeMillis();
+            for (Integer j = 0; j < count; j++) {
+                this.collectionLinked.add(j + 1);
+            }
+            endLinked = System.currentTimeMillis() - startLinked;
+            write(collectionLinked.toString());
+        }
+        for (int i = 0; i < iter; i++) {
+            startHash = System.currentTimeMillis();
+            for (Integer j = 0; j < count; j++) {
+                this.collectionHash.add(j + 1);
+            }
+            endHash = System.currentTimeMillis() - startHash;
+            write(collectionHash.toString());
+        }
+        for (int i = 0; i < iter; i++) {
+            startLinkedHash = System.currentTimeMillis();
+            for (Integer j = 0; j < count; j++) {
+                this.collectionLinkedHash.add(j + 1);
+            }
+            endLinkedHash = System.currentTimeMillis() - startLinkedHash;
+            write(collectionLinkedHash.toString());
+        }
+        for (int i = 0; i < iter; i++) {
+            startTree = System.currentTimeMillis();
+            for (Integer j = 0; j < count; j++) {
+                this.collectionTree.add(j + 1);
+            }
+            endTree = System.currentTimeMillis() - startTree;
+            write(collectionTree.toString());
+        }
     }
 
     @Override
     public void delete() {
-        userList = getInfoFromFile();
-        if (CollectionUtils.isEmpty(userList)) {
-            throw new RuntimeException("empty list");
-        }
-        User current = userList.stream().filter(u -> u.getId().equals(id)).findFirst().orElse(null);
-        if (Objects.isNull(current)) {
-            throw new RuntimeException("user not found");
-        }
-        userList.removeIf(u -> u.getId().equals(id));
-        writeUsersToFile();
+        this.collectionArray.clear();
+        this.collectionLinked.clear();
+        this.collectionHash.clear();
+        this.collectionLinkedHash.clear();
+        this.collectionTree.clear();
     }
+
+    @Override
+    public String toString() {
+        return "CollectionInFile{" +
+                ", collectionArray=" + collectionArray + "\n" +
+                ", collectionLinked=" + collectionLinked + "\n" +
+                ", collectionHash=" + collectionHash + "\n" +
+                ", collectionLinkedHash=" + collectionLinkedHash + "\n" +
+                ", collectionTree=" + collectionTree +
+                '}';
+    }
+
+    File toInfo = new File("test.txt");
+
+    private void write(String time) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(toInfo, true));
+            writer.write(time);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
     public void write1() {
         try(
                 BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FileType.FILE_PATH.getPath(), true));
@@ -76,5 +145,7 @@ public class CollectionInFile implements CollectionDaoInterface{
             writer.flush();
         } catch (IOException exception) {
             exception.printStackTrace();
-        }
+        }*/
 }
+
+

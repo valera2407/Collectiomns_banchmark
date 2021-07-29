@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class ObjectFactory {
 
-    private static ObjectFactory instance;
+    /*private static ObjectFactory instance;
     private Reflections reflections;
 
     private ObjectFactory() {
@@ -35,5 +35,5 @@ public class ObjectFactory {
             }
         }
         return null;
-    }
+    }*/
 }
