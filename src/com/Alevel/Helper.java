@@ -1,10 +1,26 @@
 package com.Alevel;
 
 import java.io.*;
+import java.util.Collection;
+import java.util.Objects;
 
-public class InputInfo {
+public class Helper {
 
-    private final CollectionDaoInterface collection = new CollectionInFile();
+    static void input(Collection<Integer> collection, int count) {
+        for (int i = 0; i < count; i++) {
+            collection.add(i);
+        }
+    }
+
+    static void delete(Collection<Integer> collection) {
+        collection.clear();
+    }
+
+    static String getCollectionClassName(Collection<?> collection) {
+        return  collection.getClass().getSimpleName();
+    }
+
+    /*private final CollectionDaoInterface collection = new CollectionInFile();
 
 
     public void run() {
@@ -59,7 +75,7 @@ public class InputInfo {
 
     private void deleteCollection() {
         collection.delete();
-    }
+    }*/
 
 
 }

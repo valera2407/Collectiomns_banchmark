@@ -4,6 +4,6 @@ package com.Alevel;
 public class Main {
 
     public static void main(String[] args) {
-        new InputInfo().run();
+        new Runer().run();
     }
 }
